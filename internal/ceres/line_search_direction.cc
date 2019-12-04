@@ -319,6 +319,8 @@ class BFGS : public LineSearchDirection {
         inverse_hessian_.selfadjointView<Eigen::Lower>() *
         (-1.0 * current.gradient);
 
+    approx_hessian_ = inverse_hessian_;
+
     if (search_direction->dot(current.gradient) >= 0.0) {
       LOG(WARNING) << "Numerical failure in BFGS update: inverse Hessian "
                    << "approximation is not positive definite, and thus "

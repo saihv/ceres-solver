@@ -365,7 +365,16 @@ void LineSearchMinimizer::Minimize(const Minimizer::Options& options,
     iteration_summary.step_norm = (optimal_point.vector_x - x).norm();
     const double x_norm = x.norm();
     x = optimal_point.vector_x;
+    double cond;
 
+	  if (iteration_summary.iteration > 1) {
+		  Eigen::JacobiSVD<Eigen::MatrixXd> svd(line_search_direction->approx_hessian_);
+		  cond = svd.singularValues()(0) / svd.singularValues()(svd.singularValues().size() - 1);
+	  }
+	  else
+		  cond = 0.0;
+
+	  iteration_summary.condition_number = cond;
     iteration_summary.gradient_max_norm = current_state.gradient_max_norm;
     iteration_summary.gradient_norm = sqrt(current_state.gradient_squared_norm);
     iteration_summary.cost_change = previous_state.cost - current_state.cost;

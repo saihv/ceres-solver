@@ -57,6 +57,7 @@ class LineSearchDirection {
     int max_lbfgs_rank;
     bool use_approximate_eigenvalue_bfgs_scaling;
   };
+  Matrix approx_hessian_;
 
   static LineSearchDirection* Create(const Options& options);
 

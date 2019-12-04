@@ -132,6 +132,9 @@ struct CERES_EXPORT IterationSummary {
 
   // Time (in seconds) since the user called Solve().
   double cumulative_time_in_seconds = 0.0;
+
+  // Condition number of internal Hessian
+  double condition_number = 0.0;
 };
 
 // Interface for specifying callbacks that are executed at the end of
