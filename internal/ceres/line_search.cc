@@ -701,8 +701,12 @@ bool WolfeLineSearch::ZoomPhase(const FunctionSample& initial_position,
                                 FunctionSample bracket_high,
                                 FunctionSample* solution,
                                 Summary* summary) const {
+                                  
   LineSearchFunction* function = options().function;
 
+  if (!bracket_low.gradient_is_valid || !bracket_high.gradient_is_valid)
+    return false;
+  /*
   CHECK(bracket_low.value_is_valid && bracket_low.gradient_is_valid)
       << std::scientific << std::setprecision(kErrorMessageNumericPrecision)
       << "Ceres bug: f_low input to Wolfe Zoom invalid, please contact "
@@ -727,7 +731,8 @@ bool WolfeLineSearch::ZoomPhase(const FunctionSample& initial_position,
       << "contact the developers!, initial_position: " << initial_position
       << ", bracket_low: " << bracket_low
       << ", bracket_high: "<< bracket_high;
-
+  */
+ 
   if (bracket_low.gradient * (bracket_high.x - bracket_low.x) >= 0) {
     // The third condition for a valid initial bracket:
     //
